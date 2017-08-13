@@ -2,6 +2,7 @@ package insight
 
 import (
 	"net/url"
+	"strconv"
 )
 
 type Input struct {
@@ -36,13 +37,14 @@ type Transaction struct {
 }
 
 type TransactionsResponse struct {
-	PagesTotal   int64          `json:"pagesTotal"`
+	PagesTotal   int            `json:"pagesTotal"`
 	Transactions []*Transaction `json:"txs"`
 }
 
-func (c *Client) TransactionsByBlock(block string) (*TransactionsResponse, error) {
+func (c *Client) TransactionsByBlock(block string, page int) (*TransactionsResponse, error) {
 	params := make(url.Values)
 	params.Add("block", block)
+	params.Add("pageNum", strconv.Itoa(page))
 	resp := &TransactionsResponse{}
 	err := c.doRequest("/txs", params, resp)
 	return resp, err

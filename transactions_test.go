@@ -10,7 +10,7 @@ func TestTransactionsByBlock(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	_, err = c.TransactionsByBlock(summaries.Blocks[0].Hash)
+	_, err = c.TransactionsByBlock(summaries.Blocks[0].Hash, 0)
 	if err != nil {
 		t.Error(err)
 	}

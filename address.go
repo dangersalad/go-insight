@@ -16,7 +16,7 @@ type AddressSummariesResponse struct {
 	UnconfirmedBalance      float64  `json:"unconfirmedBalance"`
 	UnconfirmedBalanceSat   int64    `json:"unconfirmedBalanceSat"`
 	UnconfirmedTxApperances float64  `json:"unconfirmedTxApperances"`
-	UxApperances            int64    `json:"txApperances"`
+	TxApperances            int64    `json:"txApperances"`
 	Transactions            []string `json:"transactions,omitempty"`
 }
 

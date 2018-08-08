@@ -22,7 +22,7 @@ type AddressSummariesResponse struct {
 
 func (c *Client) AddressSummaries(addr string, listTx bool) (*AddressSummariesResponse, error) {
 	params := make(url.Values)
-	if listTx {
+	if !listTx {
 		params.Add("noTxList", "1")
 	}
 	resp := &AddressSummariesResponse{}

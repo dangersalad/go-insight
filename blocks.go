@@ -1,6 +1,7 @@
 package insight
 
 import (
+	"errors"
 	"net/url"
 	"strconv"
 	"time"
@@ -37,9 +38,15 @@ func (c *Client) BlockSummaries(limit int, blockDate time.Time) (*BlockSummaries
 }
 
 func (c *Client) LatestBlockHeight() (int64, error) {
-	bs, err := c.BlockSummaries(1, time.Now())
+	params := make(url.Values)
+	params.Add("limit", strconv.Itoa(1))
+	resp := &BlockSummariesResponse{}
+	err := c.doRequest("/blocks", params, resp)
 	if err != nil {
 		return 0, err
 	}
-	return bs.Blocks[0].Height, nil
+	if resp.Length == 0 {
+		return 0, errors.New("No block is being returned")
+	}
+	return resp.Blocks[0].Height, nil
 }
